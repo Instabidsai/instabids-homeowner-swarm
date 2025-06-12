@@ -1,0 +1,175 @@
+{
+  "project_info": {
+    "name": "instabids_homeowner_swarm_proof_of_concept",
+    "version": "1.0.0",
+    "started_at": null,
+    "estimated_completion": "14 hours",
+    "total_agents": 6
+  },
+  "agents": {
+    "agent_1": {
+      "name": "Core Infrastructure Builder",
+      "domain": "core/ deployment/",
+      "status": "not_started",
+      "current_phase": null,
+      "completion_percentage": 0,
+      "dependencies": [],
+      "primary_tools": ["digitalocean", "redis", "supabase", "docker", "context7"],
+      "estimated_duration": "1.5 hours",
+      "last_update": null,
+      "critical_deliverables": [
+        "Redis Streams infrastructure",
+        "3-tier memory system",
+        "Contact protection core",
+        "Shared agent patterns"
+      ]
+    },
+    "agent_2": {
+      "name": "Homeowner Intake Builder",
+      "domain": "agents/homeowner_intake/",
+      "status": "waiting_dependencies",
+      "current_phase": null,
+      "completion_percentage": 0,
+      "dependencies": ["agent_1"],
+      "primary_tools": ["context7", "redis", "supabase", "docker"],
+      "estimated_duration": "3 hours",
+      "last_update": null,
+      "critical_deliverables": [
+        "NLP processing pipeline",
+        "Project data extraction",
+        "Multi-turn conversations",
+        "Event integration"
+      ]
+    },
+    "agent_3": {
+      "name": "Project Scope Builder",
+      "domain": "agents/project_scope/",
+      "status": "waiting_dependencies",
+      "current_phase": null,
+      "completion_percentage": 0,
+      "dependencies": ["agent_1", "agent_2"],
+      "primary_tools": ["context7", "redis", "supabase"],
+      "estimated_duration": "2.5 hours",
+      "last_update": null,
+      "critical_deliverables": [
+        "Data structuring",
+        "Requirement analysis",
+        "Contractor criteria",
+        "Timeline estimation"
+      ]
+    },
+    "agent_4": {
+      "name": "Communication Filter Builder",
+      "domain": "agents/communication_filter/",
+      "status": "waiting_dependencies",
+      "current_phase": null,
+      "completion_percentage": 0,
+      "dependencies": ["agent_1"],
+      "primary_tools": ["context7", "redis", "supabase"],
+      "estimated_duration": "3.5 hours",
+      "last_update": null,
+      "critical_deliverables": [
+        "Multi-layer contact detection",
+        "Real-time filtering",
+        "Violation escalation",
+        "100% security enforcement"
+      ]
+    },
+    "agent_5": {
+      "name": "Payment Gate Builder",
+      "domain": "agents/payment_gate/",
+      "status": "waiting_dependencies",
+      "current_phase": null,
+      "completion_percentage": 0,
+      "dependencies": ["agent_1", "agent_4"],
+      "primary_tools": ["context7", "redis", "supabase"],
+      "estimated_duration": "2.5 hours",
+      "last_update": null,
+      "critical_deliverables": [
+        "Payment processing",
+        "Contact release control",
+        "Revenue tracking",
+        "Business model protection"
+      ]
+    },
+    "agent_6": {
+      "name": "UI Generator Builder",
+      "domain": "agents/ui_generator/ ui/",
+      "status": "waiting_dependencies",
+      "current_phase": null,
+      "completion_percentage": 0,
+      "dependencies": ["agent_1", "agent_2", "agent_3", "agent_4", "agent_5"],
+      "primary_tools": ["context7", "github", "redis", "supabase"],
+      "estimated_duration": "2 hours",
+      "last_update": null,
+      "critical_deliverables": [
+        "CopilotKit integration",
+        "Agent-aware UI",
+        "Real-time morphing",
+        "Dynamic components"
+      ]
+    }
+  },
+  "build_phases": {
+    "phase_1": {
+      "name": "Infrastructure Foundation",
+      "agents": ["agent_1"],
+      "status": "pending",
+      "blocking": true,
+      "description": "Build core Redis Streams, Supabase, and security foundation"
+    },
+    "phase_2": {
+      "name": "Parallel Business Logic",
+      "agents": ["agent_2", "agent_3", "agent_4"],
+      "status": "waiting",
+      "depends_on": ["phase_1"],
+      "description": "Build intake, scoping, and filtering agents in parallel"
+    },
+    "phase_3": {
+      "name": "Revenue & Interface",
+      "agents": ["agent_5", "agent_6"],
+      "status": "waiting", 
+      "depends_on": ["phase_2"],
+      "description": "Build payment processing and dynamic UI"
+    }
+  },
+  "integration_checkpoints": {
+    "checkpoint_1": {
+      "name": "Infrastructure Ready",
+      "required_agents": ["agent_1"],
+      "validation": [
+        "Redis Streams operational",
+        "Supabase connected",
+        "Event publishing working",
+        "Basic security patterns active"
+      ]
+    },
+    "checkpoint_2": {
+      "name": "Business Logic Complete",
+      "required_agents": ["agent_2", "agent_3", "agent_4"],
+      "validation": [
+        "End-to-end intake processing",
+        "Project scoping pipeline",
+        "Contact protection 100% functional",
+        "Cross-agent event coordination"
+      ]
+    },
+    "checkpoint_3": {
+      "name": "Full System Operational",
+      "required_agents": ["agent_5", "agent_6"],
+      "validation": [
+        "Payment processing active",
+        "Contact release controlled",
+        "UI responding to agent activity",
+        "Complete homeowner journey working"
+      ]
+    }
+  },
+  "critical_success_factors": {
+    "contact_protection": "ABSOLUTE - 100% violation detection required",
+    "event_coordination": "Redis Streams only - no direct agent communication",
+    "cost_control": "Circuit breakers enforced - $1000/day, $0.05/event",
+    "mcp_integration": "All tool calls via MCP - no direct API usage",
+    "performance": "1000+ events/minute processing capability"
+  }
+}
