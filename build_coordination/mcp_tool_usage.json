@@ -1,0 +1,249 @@
+{
+  "mcp_tool_allocation": {
+    "agent_1_infrastructure": {
+      "primary_tools": [
+        {
+          "tool": "redis",
+          "usage": "Create streams, consumer groups, event coordination",
+          "critical_operations": [
+            "xgroup_create for agent coordination",
+            "xadd for event publishing",
+            "xreadgroup for event consumption",
+            "stream monitoring and health checks"
+          ]
+        },
+        {
+          "tool": "supabase",
+          "usage": "Database setup, event store, read models",
+          "critical_operations": [
+            "create_table for events and projects",
+            "real-time subscriptions setup",
+            "database migrations and schema",
+            "connection testing and health"
+          ]
+        },
+        {
+          "tool": "digitalocean",
+          "usage": "Infrastructure provisioning (if needed)",
+          "critical_operations": [
+            "app_platform deployment",
+            "vpc configuration",
+            "infrastructure monitoring"
+          ]
+        },
+        {
+          "tool": "docker",
+          "usage": "Local development environment",
+          "critical_operations": [
+            "compose stack setup",
+            "service orchestration",
+            "development testing"
+          ]
+        },
+        {
+          "tool": "context7",
+          "usage": "Research Redis Streams and event-driven patterns",
+          "critical_operations": [
+            "search_docs for Redis Streams best practices",
+            "get_library_docs for Redis ecosystem",
+            "architectural pattern research"
+          ]
+        }
+      ]
+    },
+    "agent_2_homeowner_intake": {
+      "primary_tools": [
+        {
+          "tool": "context7",
+          "usage": "Research NLP and conversational AI patterns",
+          "critical_operations": [
+            "search_docs for LangChain patterns",
+            "get_library_docs for conversation handling",
+            "NLP processing research"
+          ]
+        },
+        {
+          "tool": "redis",
+          "usage": "Event consumption and publishing",
+          "critical_operations": [
+            "consume homeowner:project_submitted events",
+            "publish homeowner:intake_complete events",
+            "manage conversation state"
+          ]
+        },
+        {
+          "tool": "supabase",
+          "usage": "Store processed intake data",
+          "critical_operations": [
+            "insert processed project data",
+            "query conversation history",
+            "update project status"
+          ]
+        }
+      ]
+    },
+    "agent_3_project_scope": {
+      "primary_tools": [
+        {
+          "tool": "context7",
+          "usage": "Research project scoping and data structuring",
+          "critical_operations": [
+            "search_docs for project analysis patterns",
+            "contractor matching algorithms research",
+            "data modeling best practices"
+          ]
+        },
+        {
+          "tool": "redis",
+          "usage": "Event coordination with intake agent",
+          "critical_operations": [
+            "consume homeowner:intake_complete events",
+            "publish homeowner:scope_complete events",
+            "manage scoping workflow state"
+          ]
+        },
+        {
+          "tool": "supabase",
+          "usage": "Store structured project scopes",
+          "critical_operations": [
+            "insert structured scope data",
+            "create contractor matching criteria",
+            "timeline and budget storage"
+          ]
+        }
+      ]
+    },
+    "agent_4_communication_filter": {
+      "primary_tools": [
+        {
+          "tool": "context7",
+          "usage": "Research security filtering and NLP detection",
+          "critical_operations": [
+            "search_docs for contact detection patterns",
+            "security filtering systems research",
+            "obfuscation detection techniques"
+          ]
+        },
+        {
+          "tool": "redis",
+          "usage": "Real-time message filtering",
+          "critical_operations": [
+            "consume ALL communication events",
+            "publish security:violation_detected events",
+            "real-time filtering coordination"
+          ]
+        },
+        {
+          "tool": "supabase",
+          "usage": "Violation logging and user management",
+          "critical_operations": [
+            "log all security violations",
+            "track user escalation levels",
+            "audit trail maintenance"
+          ]
+        }
+      ]
+    },
+    "agent_5_payment_gate": {
+      "primary_tools": [
+        {
+          "tool": "context7",
+          "usage": "Research payment processing and security",
+          "critical_operations": [
+            "search_docs for payment security patterns",
+            "Stripe integration best practices",
+            "conditional data release patterns"
+          ]
+        },
+        {
+          "tool": "redis",
+          "usage": "Payment event coordination",
+          "critical_operations": [
+            "consume contractor selection events",
+            "publish payment:transaction_complete events",
+            "manage payment workflow state"
+          ]
+        },
+        {
+          "tool": "supabase",
+          "usage": "Transaction records and contact release",
+          "critical_operations": [
+            "store payment transaction records",
+            "manage contact release permissions",
+            "revenue tracking and reporting"
+          ]
+        }
+      ]
+    },
+    "agent_6_ui_generator": {
+      "primary_tools": [
+        {
+          "tool": "context7",
+          "usage": "Research CopilotKit and agent-aware UI",
+          "critical_operations": [
+            "search_docs for CopilotKit patterns",
+            "agent-aware UI research",
+            "real-time UI morphing techniques"
+          ]
+        },
+        {
+          "tool": "github",
+          "usage": "Access CopilotKit repository directly",
+          "critical_operations": [
+            "get_file_contents from CopilotKit repo",
+            "search_code for agent coordination patterns",
+            "example implementation analysis"
+          ]
+        },
+        {
+          "tool": "redis",
+          "usage": "Agent activity monitoring for UI",
+          "critical_operations": [
+            "consume agent heartbeat events",
+            "monitor all agent activity streams",
+            "real-time UI state coordination"
+          ]
+        },
+        {
+          "tool": "supabase",
+          "usage": "UI data queries and real-time updates",
+          "critical_operations": [
+            "query project state for UI",
+            "real-time subscription setup",
+            "UI component data fetching"
+          ]
+        }
+      ]
+    }
+  },
+  "mcp_integration_patterns": {
+    "all_agents_must_use": {
+      "pattern": "await mcp.call_tool('tool_name', {parameters})",
+      "no_direct_apis": "ABSOLUTE REQUIREMENT - all external calls via MCP",
+      "error_handling": "MCP tool failures must be handled gracefully",
+      "rate_limiting": "Respect MCP tool rate limits and quotas"
+    },
+    "redis_integration": {
+      "connection": "Use MCP redis tools only",
+      "streams": "All agent coordination via Redis Streams",
+      "patterns": [
+        "await mcp.call_tool('redis', {'command': 'xadd', 'stream': 'stream_name', 'fields': {...}})",
+        "await mcp.call_tool('redis', {'command': 'xreadgroup', 'group': 'group_name', 'consumer': 'consumer_name', 'streams': [...]})"
+      ]
+    },
+    "supabase_integration": {
+      "connection": "Use MCP supabase tools only",
+      "operations": "Database operations via MCP wrapper",
+      "patterns": [
+        "await mcp.call_tool('supabase', {'action': 'create_table', 'table': 'table_name', 'schema': {...}})",
+        "await mcp.call_tool('supabase', {'action': 'execute_sql', 'query': 'SELECT ...'})"
+      ]
+    }
+  },
+  "critical_mcp_requirements": {
+    "agent_1": "Must establish MCP redis/supabase connectivity for all others",
+    "agent_4": "Must achieve 100% contact filtering via MCP tools",
+    "agent_5": "Must control contact release via MCP payment verification",
+    "all_agents": "Must coordinate exclusively via MCP redis streams"
+  }
+}
