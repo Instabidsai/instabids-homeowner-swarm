@@ -1,0 +1,93 @@
+{
+  "project": "instabids-homeowner-swarm",
+  "version": "1.0.0",
+  "architecture": "event-driven-agent-swarm",
+  "entryPoints": {
+    "agent1_infrastructure": "core/events/publisher.py",
+    "agent2_intake": "agents/homeowner_intake/intake_agent.py", 
+    "agent3_scope": "agents/project_scope/scope_agent.py",
+    "agent4_filter": "agents/communication_filter/filter_agent.py",
+    "agent5_payment": "agents/payment_gate/payment_agent.py",
+    "agent6_ui": "agents/ui_generator/ui_agent.py"
+  },
+  "testCommand": "python -m pytest tests/",
+  "buildCommand": "docker-compose up -d",
+  "mcpTools": {
+    "essential": ["redis", "supabase", "docker"],
+    "research": ["context7", "github"], 
+    "deployment": ["digitalocean", "vercel"],
+    "coordination": ["claude-code"]
+  },
+  "dependencies": {
+    "core": ["redis", "supabase", "langchain", "asyncio"],
+    "ui": ["react", "copilotkit", "typescript", "tailwindcss"],
+    "testing": ["pytest", "jest", "asyncio"],
+    "security": ["cryptography", "pydantic"],
+    "payment": ["stripe", "python-dotenv"]
+  },
+  "architecture": {
+    "communication": "redis-streams-only",
+    "memory": "3-tier-redis-postgres-supabase",
+    "security": "multi-layer-contact-protection",
+    "cost_control": "circuit-breakers-enabled",
+    "ui": "copilotkit-agent-aware",
+    "deployment": "digitalocean-supabase-vercel"
+  },
+  "criticalRules": [
+    "NO_DIRECT_AGENT_COMMUNICATION",
+    "CONTACT_PROTECTION_ABSOLUTE",
+    "COST_LIMITS_ENFORCED", 
+    "EVENT_SOURCING_REQUIRED",
+    "MCP_TOOLS_ONLY",
+    "PAYMENT_BEFORE_CONTACT_RELEASE",
+    "REDIS_STREAMS_COORDINATION"
+  ],
+  "agentCoordination": {
+    "buildOrder": ["agent1", ["agent2", "agent3", "agent4"], ["agent5", "agent6"]],
+    "statusTracking": "build_coordination/build_status.json",
+    "handoffProtocol": "event-completion-triggers-next-agent",
+    "mcpIntegration": "all-tools-via-mcp-calls"
+  },
+  "businessModel": {
+    "core": "contact-information-protection",
+    "revenue": "contractor-connection-fees",
+    "security": "multi-layer-violation-detection",
+    "scaling": "agent-swarm-coordination"
+  },
+  "infrastructure": {
+    "redis": {
+      "purpose": "event-coordination-and-memory-tier-1",
+      "connection": "USE_MCP_REDIS_TOOLS",
+      "streams": ["homeowner:projects", "homeowner:intake_complete", "homeowner:scope_complete", "security:violations", "payment:transactions"]
+    },
+    "supabase": {
+      "purpose": "event-store-and-read-models-tier-2",
+      "tables": ["events", "projects", "users", "transactions", "violations"],
+      "realtime": "enabled-for-ui-updates"
+    },
+    "digitalocean": {
+      "purpose": "hosting-and-infrastructure",
+      "services": ["redis-cluster", "app-platform", "vpc"]
+    }
+  },
+  "securityModel": {
+    "contactProtection": {
+      "detection": ["regex-patterns", "nlp-analysis", "intent-detection", "obfuscation-detection"],
+      "escalation": ["warning", "restriction", "suspension", "ban"],
+      "enforcement": "real-time-filtering",
+      "audit": "complete-violation-logging"
+    },
+    "costControls": {
+      "dailyLimit": 1000.0,
+      "perEventLimit": 0.05,
+      "circuitBreaker": "automatic-shutdown"
+    }
+  },
+  "testingStrategy": {
+    "coverage": ">80%",
+    "contactProtection": "100%-block-rate-required",
+    "performance": "1000-events-per-minute",
+    "security": "comprehensive-violation-testing",
+    "integration": "cross-agent-coordination-testing"
+  }
+}
