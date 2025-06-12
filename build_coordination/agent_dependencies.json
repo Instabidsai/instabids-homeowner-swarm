@@ -1,0 +1,118 @@
+{
+  "dependency_graph": {
+    "agent_1": {
+      "depends_on": [],
+      "enables": ["agent_2", "agent_3", "agent_4"],
+      "blocking_deliverables": [
+        "Redis Streams infrastructure operational",
+        "Supabase connection established",
+        "Event publishing/consuming patterns",
+        "Core security patterns implemented"
+      ],
+      "handoff_events": [
+        "infrastructure:redis_streams_ready",
+        "infrastructure:supabase_connected",
+        "infrastructure:event_patterns_active"
+      ]
+    },
+    "agent_2": {
+      "depends_on": ["agent_1"],
+      "enables": ["agent_3"],
+      "blocking_deliverables": [
+        "Homeowner intake processing pipeline",
+        "NLP project data extraction",
+        "Event integration with Redis Streams"
+      ],
+      "handoff_events": [
+        "homeowner:intake_processing_ready",
+        "homeowner:nlp_pipeline_active"
+      ]
+    },
+    "agent_3": {
+      "depends_on": ["agent_1", "agent_2"],
+      "enables": ["agent_5"],
+      "blocking_deliverables": [
+        "Project scope structuring",
+        "Contractor matching criteria",
+        "Timeline and budget analysis"
+      ],
+      "handoff_events": [
+        "homeowner:scope_processing_ready",
+        "contractors:matching_criteria_active"
+      ]
+    },
+    "agent_4": {
+      "depends_on": ["agent_1"],
+      "enables": ["agent_5"],
+      "blocking_deliverables": [
+        "Multi-layer contact detection (100% accuracy required)",
+        "Real-time content filtering",
+        "Violation escalation system"
+      ],
+      "handoff_events": [
+        "security:contact_protection_active",
+        "security:filtering_operational"
+      ]
+    },
+    "agent_5": {
+      "depends_on": ["agent_1", "agent_3", "agent_4"],
+      "enables": ["agent_6"],
+      "blocking_deliverables": [
+        "Payment processing integration",
+        "Contact release control system",
+        "Revenue tracking and protection"
+      ],
+      "handoff_events": [
+        "payment:processing_active",
+        "payment:contact_release_controlled"
+      ]
+    },
+    "agent_6": {
+      "depends_on": ["agent_1", "agent_2", "agent_3", "agent_4", "agent_5"],
+      "enables": [],
+      "blocking_deliverables": [
+        "CopilotKit agent-aware UI",
+        "Real-time agent activity visualization", 
+        "Dynamic form morphing based on agent state"
+      ],
+      "handoff_events": [
+        "ui:agent_awareness_active",
+        "ui:realtime_morphing_operational"
+      ]
+    }
+  },
+  "parallel_execution": {
+    "phase_1_parallel": {
+      "agents": [],
+      "note": "Agent 1 must complete alone - builds foundation"
+    },
+    "phase_2_parallel": {
+      "agents": ["agent_2", "agent_3", "agent_4"],
+      "coordination": "Independent development, shared Agent 1 infrastructure",
+      "conflict_resolution": "Separate domains, Redis Streams coordination only"
+    },
+    "phase_3_parallel": {
+      "agents": ["agent_5", "agent_6"],
+      "coordination": "Agent 5 enables Agent 6 contact release features",
+      "sequencing": "Agent 5 payment → Agent 6 UI integration"
+    }
+  },
+  "critical_path": [
+    "agent_1 (Infrastructure)",
+    "agent_4 (Security) - BUSINESS MODEL CRITICAL",
+    "agent_5 (Payment) - REVENUE PROTECTION",
+    "agent_6 (UI) - USER EXPERIENCE"
+  ],
+  "handoff_protocol": {
+    "completion_validation": {
+      "method": "event_stream_verification",
+      "timeout": "30_minutes_max_per_agent",
+      "fallback": "manual_validation_with_tests"
+    },
+    "dependency_checking": {
+      "automatic": "Redis Stream event monitoring",
+      "manual": "build_status.json updates",
+      "validation": "integration test execution"
+    }
+  }
+}
